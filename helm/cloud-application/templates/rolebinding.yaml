@@ -1,0 +1,12 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "cloud-application.fullname" . }}-reader-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "cloud-application.serviceAccountName" . }}
+    apiGroup: ""
+roleRef:
+  kind: Role
+  name: {{ include "cloud-application.fullname" . }}-reader-role
+  apiGroup: ""

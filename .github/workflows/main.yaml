@@ -61,3 +61,14 @@ jobs:
           push: true
           tags: |
             tullo.jfrog.io/default-docker-virtual/cloudapp-java:${{ env.VERSION }}
+
+      - name: Publish Helm chart
+        uses: stefanprodan/helm-gh-pages@master
+        with:
+          token: ${{ secrets.CHART_TOKEN }}
+          charts_dir: helm
+          charts_url: https://tullo.github.io/helm-charts/
+          repository: helm-charts
+          branch: gh-pages
+          app_version: ${{ env.VERSION }}
+          chart_version: ${{ env.VERSION }}
