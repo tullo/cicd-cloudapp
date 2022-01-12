@@ -1,0 +1,13 @@
+name: cloudapp-java
+image: okteto/maven:3
+command: ["mvn", "spring-boot:run" ]
+sync:
+- .:/usr/src/app
+forward:
+- 5005:5005
+- 8080:8080
+autocreate: true
+volumes:
+- /root/.m2
+
+#workdir: /app
