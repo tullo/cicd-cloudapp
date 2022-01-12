@@ -98,3 +98,12 @@ jobs:
           branch: gh-pages
           app_version: ${{ env.VERSION }}
           chart_version: ${{ env.VERSION }}
+
+      - name: Deploy
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: |
+            helm repo add tullo https://tullo.github.io/helm-charts/
+            helm repo update
+            helm upgrade chart-1642000328 tullo/cloud-application-java --install --atomic
+          kubeconfig: "${{ secrets.KUBECONFIG }}"
