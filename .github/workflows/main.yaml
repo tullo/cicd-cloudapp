@@ -8,9 +8,14 @@ on:
     branches:
       - main
 
+env:
+  DOCKER_REGISTRY: tullo.jfrog.io/default-docker-virtual
+  DOCKER_IMAGE: tullo.jfrog.io/default-docker-virtual/cloudapp-java
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -37,18 +42,27 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          # Key is named differently to avoid collision
+          key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-multi-buildx
+
       - name: Login to jfrog.io
         uses: docker/login-action@v1
         with:
-          registry: tullo.jfrog.io/default-docker-virtual
+          registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ secrets.JFROG_USER }}
           password: ${{ secrets.JFROG_ACCESS_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v3 # https://github.com/docker/metadata-action
         with:
-          images: tullo.jfrog.io/default-docker-virtual/cloudapp-java
+          images: ${{ env.DOCKER_IMAGE }}
           #setting value manually, but could come from git tag
           tags: |
             type=ref,event=tag
@@ -60,7 +74,19 @@ jobs:
           context: .
           push: true
           tags: |
-            tullo.jfrog.io/default-docker-virtual/cloudapp-java:${{ env.VERSION }}
+            ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
+
+        # This ugly bit is necessary if you don't want your cache to grow forever
+        # till it hits GitHub's limit of 5GB.
+        # Temp fix
+        # https://github.com/docker/build-push-action/issues/252
+        # https://github.com/moby/buildkit/issues/1896
+      - name: Move buildx cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
       - name: Publish Helm chart
         uses: stefanprodan/helm-gh-pages@master
