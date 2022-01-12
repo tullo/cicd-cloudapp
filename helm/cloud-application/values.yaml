@@ -6,15 +6,17 @@ replicaCount: 1
 
 image:
   repository: tullo.jfrog.io/default-docker-local/cloudapp-java
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
+  #pullPolicy: IfNotPresent
+
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  #tag: ""
 
 imagePullSecrets:
   - name: regcred
 
 nameOverride: ""
-fullnameOverride: ""
+fullnameOverride: "cloud-application-java"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -41,6 +43,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 8080
+  targetPort: 8080
 
 port:
   containerPort: 8080
