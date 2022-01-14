@@ -260,9 +260,9 @@ Make a code change and you’ll see that the version change gets picked up and i
 ## Helm Initialization and Chart Publishing
 
 
-`helm install --dry-run --generate-name . > dep.yaml`
-
-helm install --generate-name .
+- `helm install --dry-run --generate-name . > dep.yaml`
+- `helm install --generate-name .`
+- `helm upgrade chart-1642000328 tullo/cloud-application-java --install --atomic --dry-run --debug`
 
 ---
 
