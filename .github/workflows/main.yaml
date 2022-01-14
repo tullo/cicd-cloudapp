@@ -90,6 +90,10 @@ jobs:
           app_version: ${{ env.VERSION }}
           chart_version: ${{ env.VERSION }}
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy
         uses: WyriHaximus/github-action-helm3@v2
         with:
