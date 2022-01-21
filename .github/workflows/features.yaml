@@ -10,7 +10,7 @@ on:
 
 env:
   DOCKER_REGISTRY: tullo.jfrog.io/default-docker-virtual
-  DOCKER_IMAGE: tullo.jfrog.io/default-docker-virtual/cloudapp-java
+  DOCKER_IMAGE: tullo.jfrog.io/default-docker-virtual/cicd-cloudapp
 
 jobs:
   build:

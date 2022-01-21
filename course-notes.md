@@ -115,7 +115,7 @@ Github Actions should show a single build being kicked off from the main branch.
 
 [Artifactory as Your Kubernetes Registry](https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory)
 - Create an account for free
-- Setup a docker repository [packages/docker://cloudapp-java](https://<namepsace>.jfrog.io/ui/packages/docker:%2F%2Fcloudapp-java)
+- Setup a docker repository [packages/docker://cicd-cloudapp](https://<namepsace>.jfrog.io/ui/packages/docker:%2F%2Fcicd-cloudapp)
 
 Github settings
 - Add secret JFROG_USER
@@ -164,7 +164,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: <namespace>.jfrog.io/default-docker-virtual/cloudapp-java
+          images: <namespace>.jfrog.io/default-docker-virtual/cicd-cloudapp
           tags: |
             type=ref,event=tag
 
@@ -216,7 +216,7 @@ jobs:
           context: .
           push: true
           tags: |
-            <namespace>.jfrog.io/default-docker-virtual/cloudapp-java:${{ env.VERSION }}
+            <namespace>.jfrog.io/default-docker-virtual/cicd-cloudapp:${{ env.VERSION }}
 ```
 
 Lets try it out.
@@ -241,8 +241,8 @@ You should see something like this in your build logs:
 ```sh
 16 exporting to image
 16 pushing layers 3.1s done
-16 pushing manifest for <namepsace>.jfrog.io/default-docker-virtual/cloudapp-java:1.0.7@sha256:e68a6459f092d2d37bb1385f46c276807a79ae1bb4f80a217b1edf5b06ab4b36
-16 pushing manifest for <namepsace>.jfrog.io/default-docker-virtual/cloudapp-java:1.0.7@sha256:e68a6459f092d2d37bb1385f46c276807a79ae1bb4f80a217b1edf5b06ab4b36 1.8s done
+16 pushing manifest for <namepsace>.jfrog.io/default-docker-virtual/cicd-cloudapp:1.0.7@sha256:e68a6459f092d2d37bb1385f46c276807a79ae1bb4f80a217b1edf5b06ab4b36
+16 pushing manifest for <namepsace>.jfrog.io/default-docker-virtual/cicd-cloudapp:1.0.7@sha256:e68a6459f092d2d37bb1385f46c276807a79ae1bb4f80a217b1edf5b06ab4b36 1.8s done
 ```
 
 The image got tagged with `1.0.7`.
@@ -334,7 +334,7 @@ helm list
 
 helm upgrade chart-1642000328 tullo/cloud-application-java
 
-## [pod-event] Successfully pulled image "tullo.jfrog.io/default-docker-local/cloudapp-java:1.0.9"
+## [pod-event] Successfully pulled image "tullo.jfrog.io/default-docker-local/cicd-cloudapp:1.0.9"
 
 helm list
 

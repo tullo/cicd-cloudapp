@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: tullo.jfrog.io/default-docker-local/cloudapp-java
+  repository: tullo.jfrog.io/default-docker-local/cicd-cloudapp
   pullPolicy: Always
   #pullPolicy: IfNotPresent
 

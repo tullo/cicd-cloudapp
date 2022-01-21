@@ -1,4 +1,4 @@
-name: cloudapp-java
+name: cicd-cloudapp
 image: okteto/maven:3
 command: ["mvn", "spring-boot:run" ]
 sync:
