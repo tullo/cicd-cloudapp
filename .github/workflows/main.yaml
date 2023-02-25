@@ -82,6 +82,7 @@ jobs:
       - name: Publish Helm chart
         uses: stefanprodan/helm-gh-pages@master
         with:
+          # https://github.com/settings/tokens create 'helm-charts (push)'
           token: ${{ secrets.CHART_TOKEN }}
           charts_dir: helm
           charts_url: https://tullo.github.io/helm-charts/
@@ -100,5 +101,5 @@ jobs:
           exec: |
             helm repo add tullo https://tullo.github.io/helm-charts/
             helm repo update
-            helm upgrade chart-1642000328 tullo/cloud-application-java --install --atomic
+            helm upgrade chart-1642000328 tullo/cloud-application-java --install --atomic --dry-run
           kubeconfig: "${{ secrets.KUBECONFIG }}"
