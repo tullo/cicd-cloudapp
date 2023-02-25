@@ -101,5 +101,6 @@ jobs:
           exec: |
             helm repo add tullo https://tullo.github.io/helm-charts/
             helm repo update
-            helm upgrade chart-1642000328 tullo/cloud-application-java --install --atomic --dry-run
-          #kubeconfig: "${{ secrets.KUBECONFIG }}" (deployment disabled for now)
+            helm lint ./helm/cloud-application/
+#           helm upgrade chart-1642000328 tullo/cloud-application-java --install --atomic --wait
+#         kubeconfig: "${{ secrets.KUBECONFIG }}" (deployment disabled for now)
