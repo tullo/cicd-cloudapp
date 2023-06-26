@@ -3,5 +3,14 @@
   "extends": [
     "config:base"
   ],
-  "dependencyDashboard": true
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ],
+  "automerge": true,
+  "automergeType": "branch",
+  "automergeStrategy": "rebase",
+  "commitBodyTable": true  
 }
