@@ -52,7 +52,7 @@ jobs:
             ${{ runner.os }}-multi-buildx
 
       - name: Login to jfrog.io
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ secrets.JFROG_USER }}
